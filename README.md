@@ -11,7 +11,8 @@ Projekt jest uruchamiany za pomocą [Create React App](https://github.com/facebo
 
 #### Dostępne skrypty
 
-W katalogu projektu możesz uruchomić:
+W katalogu projektu możesz uruchomić: \
+<sub><sup>Przed uruchomieniem aplikacji, zainstaluj wymagane zależności: `npm install`</sup></sub>
 
 #### `npm start`
 
