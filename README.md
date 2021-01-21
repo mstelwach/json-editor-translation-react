@@ -1,70 +1,84 @@
-# Getting Started with Create React App
+# JSON Edytor Tłumaczeń
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Prosta aplikacja internetowa do edycji plików JSON zawierających tłumaczenia.\
+Załaduj translację i w łatwy sposób uzupełnij brakujące etykiety tłumaczeniami.
 
-## Available Scripts
+## Front-end
 
-In the project directory, you can run:
+### React
 
-### `npm start`
+Projekt jest uruchamiany za pomocą [Create React App](https://github.com/facebook/create-react-app).
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+#### Dostępne skrypty
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+W katalogu projektu możesz uruchomić:
 
-### `npm test`
+#### `npm start`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Uruchamia aplikację w trybie deweloperskim.\
+Otwórz [http://localhost:3000](http://localhost:3000) aby wyświetlić w przeglądarce.
 
-### `npm run build`
+Strona zostanie ponownie zalałodawna, jeśli wprowadzisz zmiany.\
+W konsoli zostaną również wyświetlone wszelkie błędy.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### `npm test`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Uruchamia testy w interaktywnym trybie 'watch mode'.\
+Więcej informacji można znaleźć w sekcji dotyczącej [uruchomionych testów](https://facebook.github.io/create-react-app/docs/running-tests).
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### `npm run build`
 
-### `npm run eject`
+Tworzy aplikację do produkcji w folderze „build”.\
+Prawidłowo łączy Reacta w trybie produkcyjnym i optymalizuje kompilację pod kątem najlepszej wydajności.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Kompilacja jest zminimalizowana, a nazwy plików zawierają skróty.\
+Twoja aplikacja jest gotowa do wdrożenia!
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Więcej informacji można znaleźć w sekcji dotyczącej [wdrożenia](https://facebook.github.io/create-react-app/docs/deployment).
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+#### Dowiedz się więcej!
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Możesz dowiedzieć sie więcej w [dokumentacji Create React App](https://facebook.github.io/create-react-app/docs/getting-started).
 
-## Learn More
+Aby zapoznać się z React, zajrzyj do [dokumentacji React](https://reactjs.org/).
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Back-end
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### python
 
-### Code Splitting
+Logika skryptu opiera się na dwóch metodach.
+1. Pierwsza pozwala porównać tłumaczenia. Nieprzetłumaczone etykiety są wychwycane przez program a następnie \
+zapisywane w nowo utworzonym pliku `.json`. Brakujące etykiety uzupełniamy w aplikacji webowej.
+2. Druga metoda z kolei pozwala na wprowadzenie przetłumaczonych etykiet danego języka do źródłowego pliku translacji.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+#### Skrypt `json-editor.py`
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Aby użyć danej metody, wykonaj następujące kroki:
+  1. Przejdź do katologu `./backend`
+  2. Otwórz wiersz poleceń, a następnie wprowadź polecenie:
+  
+- Porównanie głównego tłumaczenia z pozostałymi translacjami pod względem nieprzetłumaczonych etykiet. \
+  Wychwycenie brakujących etykiet lub błędnie przetłumaczonych.
+    
+    Przykładowe dane wejściowe: 
+    - `en_US.JSON` - nazwa pliku głównego tłumaczenia
+    - `es.json` - nazwa pliku tłumaczenia z brakującymi etykietami
+     ```
+  $ python3 json-editor.py -set_untranslated_labels 'en_US.JSON' 'es.json'
+     ```
+    Przykładowe dane wyjściowe: Utworzenie pliku `en-US_es-ES.json` w katalogu `backend/translations/untranslated_labels`.
+    
+- Wprowadzenie przetłumaczonych etykiet danego języka do źródłowego pliku translacji.
+    
+    Przykładowe dane wejściowe: 
+    - `en-US_es-ES.json` - zaktualizowany plik z przetłumaczonymi etykietami
+    - `es-ES` - język tłumaczeń, który chcemy zaktualizować
+    - `es.json` - nazwa pliku tłumaczenia źródłowego do zaktualizowania
+    
+     ```
+  $ python3 json-editor.py -update_translations 'en-US_es-ES.json' 'es-ES' 'es.json'
+     ```
+  
+## Narzędzia do uruchomienia aplikacji i skryptu:
+* [python] - https://www.python.org/
+* [npm] - https://www.npmjs.com/
