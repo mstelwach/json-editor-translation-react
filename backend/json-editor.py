@@ -1,7 +1,7 @@
 import json
 import re
 import sys
-
+from json.decoder import JSONDecodeError
 
 class CompareTranslations:
 
@@ -29,9 +29,14 @@ class CompareTranslations:
         :param path_file: format 'string', ścieżka docelowa pliku, np: './translations/
         :return: Funkcja zwraca słownik {klucz : wartość}.
         """
-        with open('{}/{}'.format(path_file, file)) as json_file:
-            dict_items = json.load(json_file)
-        return dict_items
+        try:
+            with open('{}/{}'.format(path_file, file)) as json_file:
+                dict_items = json.load(json_file)
+                return dict_items
+        except JSONDecodeError as message_error:
+            print("Wystąpił błąd! Popraw plik '{}'. Plik nie został utworzony.".format(file))
+            print("Informacja o błędzie: {}".format(message_error))
+            sys.exit()
 
     def set_untranslated_label(self, translations_dict, label, language, main_translation_dict):
         """
